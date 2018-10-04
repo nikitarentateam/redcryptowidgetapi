@@ -9,7 +9,8 @@ RedCrypto Widget Payment Session API
 
 ### Create a New Payment Session [POST]
 
-Create a New Payment Session
+Создание новой платежной сессии
+Параметры валюты назначения и контакты могут быть сразу установлены. Это необходимо для пересоздания платежной сессии из уже существующей сессии
 
 + Request (application/json)
 
@@ -17,7 +18,9 @@ Create a New Payment Session
             "merchant_key": "bff149a0b87f5b0e00d9dd364e9ddaa0",
             "order_key": "f5bb0c8de146c67b44babbf4e6584cc0",
             "currency_source_id": "USD",
-            "currency_source_ammount": 620.40
+            "currency_source_ammount": 620.40,
+            "currency_destination_id": null,
+            "contacts": null
         }
 
 + Response 200 (application/json)
@@ -82,7 +85,7 @@ Create a New Payment Session
 
 + Parameters
     + session_key (string) - payment session identifier
-    + fields (optional, array) - fields to return
+    + fields (optional, array) - поля, которые надо вернуть. Если указан этот параметр, возвращаем только эти поля
 
 + Response 200 (application/json)
 
@@ -142,9 +145,9 @@ Create a New Payment Session
         
 ### Set Payment Session Fields [PATCH /payment-session/{session_key}]
 
-Set specific fields. You can set only:
-contacts.email (in case of config value must_specify_email === true)
-currency_destination_id
+Обновить значение доступных для изменения полей
+Доступные поля для изменения: контактные данные, валюта назначения
+
 
 + Parameters
     + session_key (string) - payment session identifier
@@ -215,87 +218,6 @@ currency_destination_id
                     "request_id": "7815696ecbf1c96e6894b779456d330e",
                     "error_number": 1200,
                     "error_message": "Session does not exist",
-                    "validation_errors": {}
-                }
-            } 
-
-            
-### Refresh Payment Session [POST /payment-session/{session_key}/refresh]
-
-Create new session based on expired one, error if session is not expired yet
-Session key in body is a newly generated session key
-
-+ Parameters
-    + session_key (string) - payment session identifier
-
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "data": {
-                    "merchant_key": "bff149a0b87f5b0e00d9dd364e9ddaa0",
-                    "order_key": "f5bb0c8de146c67b44babbf4e6584cc0",
-                    "currency_source_id": "USD",
-                    "currency_source_ammount": 620.40,
-                    "session_key": "98c8a6aaea1242f3d2a72c0669f4fa6f",
-                    "session_created_timestamp": 1538578917,
-                    "session_expire_timestamp": 1538579817,
-                    "rates": [
-                        {
-                            "currency_id": "BTC",
-                            "rate_value": 6490.90,
-                            "currency_value": 0.095579966,
-                            "network_fee": 0.000011
-                        }
-                    ],
-                    "merchant": {
-                        "name": "The Honest Merchant",
-                        "address": "Moskwa 54920, Yablochnaya ulitsa, 87s74, RUSSIAN FEDERATION",
-                        "logo": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-                    },
-                    "status_id": "pending",
-                    "config" : {
-                        "must_specify_email": true
-                    },
-                    "contacts": {
-                        "email": null
-                    },
-                    "currency_destination_id": null,
-                    "payment": null
-                },
-                "meta": {
-                    "request_id": "7815696ecbf1c96e6894b779456d330e",
-                    "error_number": null,
-                    "error_message": "",
-                    "validation_errors": {}
-                }
-            }
-            
-+ Response 404 (application/json)
-
-    + Body
-
-            {
-                "data": {},
-                "meta": {
-                    "request_id": "7815696ecbf1c96e6894b779456d330e",
-                    "error_number": 1200,
-                    "error_message": "Session does not exist",
-                    "validation_errors": {}
-                }
-            } 
-
-+ Response 403 (application/json)
-
-    + Body
-
-            {
-                "data": {},
-                "meta": {
-                    "request_id": "7815696ecbf1c96e6894b779456d330e",
-                    "error_number": 1100,
-                    "error_message": "Session is not expired",
                     "validation_errors": {}
                 }
             }
