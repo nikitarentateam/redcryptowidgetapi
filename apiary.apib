@@ -77,7 +77,6 @@ RedCrypto Widget Payment Session API
                 "meta": {
                     "request_id": "7815696ecbf1c96e6894b779456d330e",
                     "error": null,
-                    "validation_errors": [],
                     "server_timestamp": 1538578917
                 }
             }
@@ -148,20 +147,22 @@ RedCrypto Widget Payment Session API
                         "address": "Moskwa 54920, Yablochnaya ulitsa, 87s74, RUSSIAN FEDERATION",
                         "logo": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
                     },
-                    "status_id": "pending",
+                    "status_id": "expired",
                     "config" : {
                         "must_specify_email": true
                     },
                     "contacts": {
-                        "email": null,
+                        "email": "123",
                         "phone": "192737128379"
                     },
-                    "payment": null
+                    "payment": {
+                        "qr_content": "data:image/png;base64,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",
+                        "url": "bitcoin://fbdeeee0a65f40d4efd9e7f096593118"
+                    }
                 },
                 "meta": {
                     "request_id": "7815696ecbf1c96e6894b779456d330e",
                     "error": null,
-                    "validation_errors": [],
                     "server_timestamp": 1538578917
                 }
             }
@@ -260,7 +261,6 @@ RedCrypto Widget Payment Session API
                 "meta": {
                     "request_id": "7815696ecbf1c96e6894b779456d330e",
                     "error": null,
-                    "validation_errors": [],
                     "server_timestamp": 1538578917
                 }
             }
@@ -273,8 +273,10 @@ RedCrypto Widget Payment Session API
                 "data": {},
                 "meta": {
                     "request_id": "7815696ecbf1c96e6894b779456d330e",
-                    "error_number": 1200,
-                    "error_message": "Session does not exist",
-                    "validation_errors": {}
+                    "error": {
+                        "code": 1200,
+                        "message": "",
+                        "validation": []
+                    }
                 }
             }
